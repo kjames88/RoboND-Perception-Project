@@ -12,9 +12,11 @@ Most of the time on this project went into training classifiers and then failing
 
 ### ROS Node
 
+*The main code for this project is in pr2_robot/scripts/project.py*
+
 #### Point Cloud Filtering
 
-Most of the code for subscribing to /pr2/world/points was reused from the lesson exercises.  Prior to those steps, I applied a statistical outlier filter (http://www.pointclouds.org/news/2013/02/07/python-bindings-for-the-point-cloud-library/).  After tuning this filter, most of the noise was eliminated.  Following this, voxel grid downsampling and passthrough filtering on both z and y axes limit the processed voxels to objects on the table and not including the drop boxes.
+Most of the code for subscribing to */pr2/world/points* was reused from the lesson exercises.  Prior to those steps, I applied a statistical outlier filter (http://www.pointclouds.org/news/2013/02/07/python-bindings-for-the-point-cloud-library/).  After tuning this filter, most of the noise was eliminated.  Following this, voxel grid downsampling and passthrough filtering on both z and y axes limit the processed voxels to objects on the table and not including the drop boxes.
 
 RANSAC plane filter separates the table from the objects of interest, and Euclidean clustering groups voxels into object clusters.  After this, HSV color and surface normal histograms are generated for the object clusters.  The classifier then generates labels based on the histogram inputs.
 
@@ -39,7 +41,9 @@ Once these fields are determined, a ROS service call should move the selected ar
 
 #### YAML Output
 
-The primary product of this project is the YAML files containing the information used by the ROS service (*test_scene_num*, *arm_name*, *object_name*, *pick_pose*, *place_pose*) for each object.  The resulting yaml files are contained in submit/worldX.yaml.
+The primary product of this project is the YAML files containing the information used by the ROS service (*test_scene_num*, *arm_name*, *object_name*, *pick_pose*, *place_pose*) for each object.
+
+#### Accuracy
 
 In the case of world 2, *book* was incorrectly classified as *snacks* resulting in a missing entry in the yaml file.  The other two worlds are complete.
 

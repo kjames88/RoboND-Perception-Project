@@ -141,11 +141,18 @@ def pcl_callback(pcl_msg):
     detected_objects_labels = []
     detected_objects_list = []
 
+    # Classify the clusters! (loop through each detected cluster one at a time)
+
     for index, pts_list in enumerate(cluster_indices):
+
+        # Grab the points for the cluster
+
         # Grab the points for the cluster from the extracted outliers (cloud_objects)
         pcl_cluster = cloud_objects.extract(pts_list)
         # convert the cluster from pcl to ROS using helper function
         ros_cluster = pcl_to_ros(pcl_cluster)
+
+        # Compute the associated feature vector
 
         # Extract histogram features
         #   complete this step just as is covered in capture_features.py
@@ -154,6 +161,8 @@ def pcl_callback(pcl_msg):
         normals = get_normals(ros_cluster)
         nhists = compute_normal_histograms(normals)
         feature = np.concatenate((chists, nhists))
+
+        # Make the prediction
 
         # Make the prediction, retrieve the label for the result
         # and add it to detected_objects_labels list
@@ -174,23 +183,7 @@ def pcl_callback(pcl_msg):
 
     rospy.loginfo('Detected {} objects: {}'.format(len(detected_objects_labels), detected_objects_labels))
 
-    # Classify the clusters! (loop through each detected cluster one at a time)
-
-        # Grab the points for the cluster
-
-        # Compute the associated feature vector
-
-        # Make the prediction
-
-        # Publish a label into RViz
-
-        # Add the detected object to the list of detected objects.
-
     # Publish the list of detected objects
-
-    # Suggested location for where to invoke your pr2_mover() function within pcl_callback()
-    # Could add some logic to determine whether or not your object detections are robust
-    # before calling pr2_mover()
 
     if True:
         try:
