@@ -40,6 +40,19 @@ Once these fields are determined, a ROS service call should move the selected ar
 
 The primary product of this project is the YAML file containing the information used by the ROS service (*test_scene_num*, *arm_name*, *object_name*, *pick_pose*, *place_pose*) for each object.  The resulting yaml files are contained in submit/worldX.yaml.
 
+In the case of world 2, *book* was incoreectly classified as *snacks* resulting in a missing entry in the yaml file.  The other two worlds are complete.
+
+### Results
+
+![world1] (images/screenshot_world1.png "World 1 recognition")
+
+![world2] (images/screenshot_world2.png "World 2 recognition")
+
+![world3] (images/screenshot_world3.png "world 3 recognition")
+
+
+
+
 
 
 
